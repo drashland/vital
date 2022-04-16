@@ -60,9 +60,7 @@ import type { Where } from "./types.ts";
  * let user = await User.factory() // User { ... }
  * console.log(user.id); // 1
  * console.log(await user.company()); // Company { ... }
- * user = await User.where([
- *   ['id', user.id]
- * ]);
+ * user = await User.where('id', user.id).first();
  * console.log(user.id); // 1
  * console.log(user.name) // "Some name"
  * const user2 = await User.factory({
@@ -158,65 +156,6 @@ export abstract class BaseModel {
       ...relationData,
     } as Entity;
   }
-
-  // toEntity(): Promise<any>;
-  // toEntity<Entity>(args: Record<string, unknown>): Promise<Entity>;
-  // toEntity<Entity>(): Promise<Entity>;
-  /**
-   * Returns your class as an entity (object), where it's a representation of
-   * the row in the database
-   *
-   * @example
-   * ```js
-   * // Representation of the schema
-   * interface UserEntity {
-   *   id: number;
-   *   username: string;
-   * }
-   * class User extends Model {
-   *   public id = 0
-   *   public username = ""
-   *   public tablename = "users"
-   *   public someCustomProp = "USERS"
-   * }
-   * const user = await User.first(...) // UserModel { ... }
-   * const entity = await user.toEntity<UserEntity>(); // { id: 0, username: "" }
-   *
-   * // You can also override the method:
-   * interface UserEntity {
-   *   id: number;
-   *   company_name: string;
-   * }
-   * }
-   * class User extends Model {
-   *   id = 0
-   *
-   *   public async toEntity(): Promise<UserEntity> {
-   *     return await this.toEntity({
-   *       company_name: (await this.company()).name
-   *     })
-   *   }
-   * }
-   *
-   * await (new User).toEntity() // { id: 0, company_name: "User ltd." }
-   * ```
-   *
-   * @param extraProps Any other fields you want to set inside the entity alongside the model
-   *
-   * @returns The entity
-   */
-  // public async toEntity<Entity>(
-  //   extraProps: Record<string, unknown> = {},
-  // ): Promise<Entity> {
-  //   const fields: Record<string, unknown> = {};
-  //   for (const field of await this.getChildFieldNames()) {
-  //     fields[field] = this[field];
-  //   }
-  //   Object.keys(extraProps).forEach((propname) => {
-  //     fields[propname] = extraProps[propname];
-  //   });
-  //   return fields as Entity;
-  // }
 
   /**
    * Save or update the model to the database.
@@ -426,7 +365,7 @@ export abstract class BaseModel {
   public static whereIn<Model extends BaseModel>(
     this: new () => Model,
     field: string,
-    values: Array<string | number>,
+    values: Array<unknown>,
   ): QueryBuilder<Model> {
     return new QueryBuilder(this, {
       whereIn: [
@@ -465,6 +404,12 @@ export abstract class BaseModel {
     return new QueryBuilder(this, { orderBy: data });
   }
 
+  /**
+   * Selects the first row found. If constraints have been set,
+   * it will also use those.
+   *
+   * @returns The row cast to a Model if found, else null
+   */
   public static async first<Model extends BaseModel>(
     this: new () => Model,
   ): Promise<Model | null> {
@@ -479,6 +424,11 @@ export abstract class BaseModel {
     return model;
   }
 
+  /**
+   * Finds the latest row
+   *
+   * @returns The row cast to a Modle if found, else null
+   */
   public static async latest<Model extends BaseModel>(
     this: new () => Model,
   ): Promise<Model | null> {
@@ -503,7 +453,7 @@ export abstract class BaseModel {
    *   static tablename = "users";
    *
    *   // Default data to insert into database
-   *   static factoryDefaults = {
+   *   protected factoryDefaults = {
    *     username: "john"
    *   }
    * }
