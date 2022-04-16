@@ -1,0 +1,20 @@
+{
+  "name": "postgres-models",
+  "description": "An ORM for Postgres",
+  "version": "1.0.0",
+  "stable": true,
+  "repository": "https://github.com/drashland/postgres-models",
+  "files": [
+    "./mod.ts",
+    "./deps.ts",
+    "./src/**/*",
+    "./README.md"
+  ],
+  "entry": "./mod.ts",
+  "checkAll": false,
+  "unlisted": false,
+  "checkTests": false,
+  "check": true,
+  "homepage": "https://github.com/drashland/postgres-models",
+  "ignore": []
+}

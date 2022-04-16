@@ -1,0 +1,7 @@
+{
+  "tasks": {
+    "test:install": "deno install --unstable --allow-env=PGDATABASE,PGHOST,PGPORT,PGUSER,PGPASSWORD,PGAPPNAME --allow-net=deno.land,localhost:54320 --allow-read=. --allow-write=tests/nessie.config.ts,tests/db -f  https://deno.land/x/nessie/cli.ts",
+    "test:build": "cd tests && docker-compose up -d && nessie migrate && cd ..",
+    "test:start": "cd tests && deno test -A; cd .."
+  }
+}
