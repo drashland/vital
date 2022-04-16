@@ -51,7 +51,7 @@ export class QueryBuilder<Model extends BaseModel> {
    *
    * @example
    * ```js
-   * constractWhereQuery([
+   * constructWhereQuery([
    *   ['id', 2]
    * ]) // { query: " WHERE id = $1", params: [2] }
    * ```
@@ -83,7 +83,7 @@ export class QueryBuilder<Model extends BaseModel> {
   }
 
   /**
-   * Constracts the WHERE IN section of a query, and returns it and the params to use
+   * Constructs the WHERE IN section of a query, and returns it and the params to use
    *
    * @example
    * ```js
@@ -167,6 +167,11 @@ export class QueryBuilder<Model extends BaseModel> {
   // FILE MARKER - METHODS - PUBLIC ////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////
 
+  /**
+   * Counts the number of rows. Uses constraints if set
+   *
+   * @returns How many rows exist
+   */
   public async count(): Promise<number> {
     this.#select = ["COUNT(id)::INTEGER as count"];
     const { query, args } = this.constructFullSelectQuery();
@@ -261,9 +266,7 @@ export class QueryBuilder<Model extends BaseModel> {
    *
    * @example
    * ```js
-   * await UserModel.where([
-   *     ['is_admin', true],
-   * ]).latest(); // UserModel { ... }
+   * await UserModel.where('is_admin', true).latest(); // UserModel { ... }
    * ```
    *
    * @returns The record converted to the model if found, else null
@@ -289,10 +292,9 @@ export class QueryBuilder<Model extends BaseModel> {
    *
    * @example
    * ```js
-   * await UserModel.where([
-   *     ['id', 2],
-   *     ['created_at', '>', new Date()]
-   * ]).first(); // UserModel { ... }
+   * await UserModel.where('id', 2,)
+   *   .where('created_at', '>', new Date())
+   *   .first(); // UserModel { ... }
    * ```
    *
    * @returns The record converted to the model if found, else null
@@ -316,10 +318,9 @@ export class QueryBuilder<Model extends BaseModel> {
    *
    * @example
    * ```js
-   * await UserModel.where([
-   *     ['id', 2],
-   *     ['created_at', '>', new Date()]
-   * ]).all() // [ UserModel { ... }, ... ]
+   * await UserModel.where('id', 2)
+   *   .where('created_at', '>', new Date())
+   *   .all() // [ UserModel { ... }, ... ]
    * ```
    *
    * @returns The record converted to the model if found, else null
