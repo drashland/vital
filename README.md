@@ -1,7 +1,7 @@
 # Vital
 
 [![Latest Release](https://img.shields.io/github/release/drashland/vital.svg?color=bright_green&label=latest)](#)
-[![CI master](https://img.shields.io/github/workflow/status/drashland/vital/main?label=ci%20-%20main)](#)
+[![CI master](https://img.shields.io/github/workflow/status/drashland/vital/Master?label=ci%20-%20main)](#)
 
 <img align="right" src="./logo.svg" alt="Vital logo" width="150" style="max-width: 150px">
 
