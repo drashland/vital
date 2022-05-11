@@ -301,7 +301,7 @@ export abstract class BaseModel {
   public static where<Model extends BaseModel>(
     column: string,
     operator: string,
-    value: string,
+    value: unknown,
   ): QueryBuilder<Model>;
   /**
    * @example
