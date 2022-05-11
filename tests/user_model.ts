@@ -27,6 +27,6 @@ export class UserModel extends Model {
   }
 
   public async articles() {
-    return await ArticleModel.where<ArticleModel>("user_id", this.id).all();
+    return await ArticleModel.where("user_id", this.id).all();
   }
 }

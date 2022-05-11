@@ -31,7 +31,7 @@ export class ArticleModel extends Model implements ArticleEntity {
   }
 
   public async user(): Promise<UserModel | null> {
-    return await UserModel.where<UserModel>("id", this.user_id).first();
+    return await UserModel.where("id", this.user_id).first();
   }
 
   // public async toEntity(): Promise<ArticleEntity> {
