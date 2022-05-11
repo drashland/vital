@@ -33,7 +33,6 @@ Deno.test("factory()", async (t) => {
 });
 
 Deno.test("latest()", async (t) => {
-  console.debug("wtdf");
   await test(t, "Grabs the latest of a model", async () => {
     await UserModel.factory();
     const user2 = await UserModel.factory();

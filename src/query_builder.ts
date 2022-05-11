@@ -208,8 +208,6 @@ export class QueryBuilder<Model extends BaseModel> {
       whereInArgs.map((arg) => args.push(arg));
     }
 
-    console.log(this.#whereIn, query, args);
-
     await queryRaw(query, args);
   }
 
