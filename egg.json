@@ -1,7 +1,7 @@
 {
   "name": "postgres-models",
   "description": "An ORM for Postgres",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "stable": true,
   "repository": "https://github.com/drashland/postgres-models",
   "files": [
