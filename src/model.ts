@@ -285,6 +285,29 @@ export abstract class BaseModel {
   // FILE MARKER - METHODS - STATIC ////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////
 
+  /**
+   * Retrieve all records from the table
+   *
+   * @example
+   * ```js
+   * const users = await UserModel.all();
+   * ```
+   *
+   * @returns An array of models (or an empty array if no records)
+   */
+  public static async all<Model extends BaseModel>(
+    this: new () => Model,
+  ): Promise<Model[]> {
+    const query = `SELECT * FROM ${(new this()).tablename}`;
+    const rows = await queryRaw(query);
+    const models: Model[] = [];
+    for (const row of rows) {
+      const model = Object.assign(new this(), row);
+      models.push(model);
+    }
+    return models;
+  }
+
   public static async count<Model extends BaseModel>(
     this: new () => Model,
   ): Promise<number> {

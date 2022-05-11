@@ -32,6 +32,15 @@ Deno.test("factory()", async (t) => {
   });
 });
 
+Deno.test("all()", async (t) => {
+  await test(t, "Fetches all records", async () => {
+    await UserModel.factory();
+    await UserModel.factory();
+    const users = await UserModel.all();
+    assertEquals(users.length, 2);
+  });
+});
+
 Deno.test("latest()", async (t) => {
   await test(t, "Grabs the latest of a model", async () => {
     await UserModel.factory();
