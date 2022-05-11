@@ -318,7 +318,7 @@ export abstract class BaseModel {
     value?: unknown,
   ): QueryBuilder<Model> {
     const where: Where = [[column, operatorOrValue]];
-    if (value) {
+    if (value !== undefined) {
       where[0].push(value);
     }
     return new QueryBuilder(this, { where });
