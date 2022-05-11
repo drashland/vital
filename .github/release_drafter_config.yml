@@ -33,7 +33,7 @@ template: |
 
   ## Documentation
 
-  * [Full Documentation](https://drash.land/postgres-models/v1.x/getting-started/introduction)
+  * [Full Documentation](https://drash.land/vital/v1.x/getting-started/introduction)
 
   ## Usage
 
@@ -42,7 +42,7 @@ template: |
   ```typescript
   // deps.ts
 
-  export { Model } from "https://deno.land/x/postgres-models@v$RESOLVED_VERSION/mod.ts";
+  export { Model } from "https://deno.land/x/vital@v$RESOLVED_VERSION/mod.ts";
   ```
 
   2. Import `Model` from your `deps.ts` file.
