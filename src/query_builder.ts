@@ -253,8 +253,10 @@ export class QueryBuilder<Model extends BaseModel> {
 
     const rows = await queryRaw(query, args);
     const models: Model[] = [];
-    for (const row of rows) {
-      models.push(Object.assign(new this.#model(), row));
+    const len = rows.length;
+    for (let i = 0; i < len; i++) {
+      const model = Object.assign(new this.#model(), rows[i]);
+      models.push(model);
     }
     return models;
   }
@@ -328,8 +330,10 @@ export class QueryBuilder<Model extends BaseModel> {
     // Execute
     const rows = await queryRaw(query, args);
     const models: Model[] = [];
-    for (const row of rows) {
-      models.push(Object.assign(new this.#model(), row));
+    const len = rows.length;
+    for (let i = 0; i < len; i++) {
+      const model = Object.assign(new this.#model(), rows[i]);
+      models.push(model);
     }
     return models;
   }
