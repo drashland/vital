@@ -301,8 +301,9 @@ export abstract class BaseModel {
     const query = `SELECT * FROM ${(new this()).tablename}`;
     const rows = await queryRaw(query);
     const models: Model[] = [];
-    for (const row of rows) {
-      const model = Object.assign(new this(), row);
+    const len = rows.length;
+    for (let i = 0; i < len; i++) {
+      const model = Object.assign(new this(), rows[i]);
       models.push(model);
     }
     return models;
