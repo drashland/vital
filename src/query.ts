@@ -21,7 +21,7 @@ if (caCertificates.length) {
 
 export async function queryRaw(
   query: string,
-  args: Array<unknown> = [],
+  args: unknown[] = [],
 ) {
   const db = new PostgresClient(dbConfig);
   await db.connect();
