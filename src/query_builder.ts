@@ -325,7 +325,6 @@ export class QueryBuilder<Model extends BaseModel> {
    */
   public async all(): Promise<Model[] | []> {
     const { query, args } = this.constructFullSelectQuery();
-
     // Execute
     const rows = await queryRaw(query, args);
     const models: Model[] = [];
