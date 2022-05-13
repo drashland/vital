@@ -22,6 +22,7 @@ jobs:
 
       - name: Run tests
         run: |
+          deno cache --unstable mod.ts
           deno task test:install
           deno task test:build
           deno task test:start
