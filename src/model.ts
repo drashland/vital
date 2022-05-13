@@ -295,10 +295,12 @@ export abstract class BaseModel {
   }
 
   public static where<Model extends BaseModel>(
+    this: new () => Model,
     column: string,
     value: unknown,
   ): QueryBuilder<Model>;
   public static where<Model extends BaseModel>(
+    this: new () => Model,
     column: string,
     operator: string,
     value: string,
