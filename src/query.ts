@@ -26,7 +26,7 @@ export async function queryRaw(
   const db = new PostgresClient(dbConfig);
   await db.connect();
   const dbResult = args && args.length
-    ? await db.queryObject(query, ...args)
+    ? await db.queryObject(query, args)
     : await db.queryObject(query);
   await db.end();
   return dbResult.rows as Record<string, unknown>[];
